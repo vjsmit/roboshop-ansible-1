@@ -13,9 +13,9 @@
         state: absent
 
     - name: Remove default directory
-        ansible.builtin.file:
-          path: /usr/share/nginx/html
-          state: directory
+      ansible.builtin.file:
+        path: /usr/share/nginx/html
+        state: directory
 
     - name: Download & extract frontend content
       ansible.builtin.unarchive:
