@@ -16,7 +16,7 @@
         regexp: '127.0.0.1'
         replace: '0.0.0.0'
     - name: Start mongod service
-        ansible.builtin.systemd:
-          state: restarted
-          name: mongod
-          enabled: true
+      ansible.builtin.systemd:
+        state: restarted
+        name: mongod
+        enabled: true
