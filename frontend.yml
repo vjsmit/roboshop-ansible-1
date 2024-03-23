@@ -5,7 +5,7 @@
     - name: Install nginx server
       ansible.builtin.yum:
         name: nginx
-        state: latest
+        state: present
 
 #    - name: Remove default directory
 #      ansible.builtin.file:
