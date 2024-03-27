@@ -20,7 +20,7 @@
 #func_StatCheck $?
 
 - name: Disable MySQL 8
-  ansible.builtin.shell: dnf module disable mysql
+  ansible.builtin.shell: dnf module disable mysql -y
 
 - name: Setup the MySQL5.7 repo file
   ansible.builtin.copy:
