@@ -1,0 +1,31 @@
+- name: Install nginx server
+    ansible.builtin.dnf:
+      name: nginx
+      state: latest
+
+- name: Remove default directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Remove default directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name: Download & extract test content
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/test.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes
+
+- name: Setup reverse proxy
+  ansible.builtin.copy:
+    src: frontend.conf
+    dest: /etc/nginx/default.d/roboshop.conf
+
+- name: Start nginx service
+  ansible.builtin.systemd:
+    state: restarted
+    name: nginx
+    enabled: true
