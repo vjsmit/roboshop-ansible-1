@@ -1,0 +1,48 @@
+#echo -e "${color}Setup erlang repo${nocolor}"
+#curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash   &>>${logfile}
+#func_StatCheck $?
+#
+#echo -e "${color}Setup rabbitmq repo${nocolor}"
+#curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash    &>>${logfile}
+#func_StatCheck $?
+#
+#echo -e "${color}Install rabbitmq${nocolor}"
+#dnf install rabbitmq-server -y    &>>${logfile}
+#func_StatCheck $?
+#
+#echo -e "${color}Start rabbitmq service${nocolor}"
+#systemctl enable rabbitmq-server    &>>${logfile}
+#systemctl restart rabbitmq-server   &>>${logfile}
+#func_StatCheck $?
+#
+#echo -e "${color}Create app user and fix permissions${nocolor}"
+#rabbitmqctl add_user roboshop ${rabbitmq_pwd}   &>>${logfile}
+#rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"    &>>${logfile}
+#func_StatCheck $?
+
+- name: Setup erlang
+  ansible.builtin.shell: https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
+
+- name: Setup rabbitmq
+  ansible.builtin.shell: https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+
+- name: Install rabbitmq
+  ansible.builtin.dnf:
+    name: rabbitmq-server
+    state: installed
+
+- name: Start rabbitmq service
+  ansible.builtin.systemd:
+    name: rabbitmq-server
+    enabled: yes
+    state: restarted
+
+- name: Create app user and fix permissions
+  community.rabbitmq.rabbitmq_user:
+    user: roboshop
+    password: roboshop123
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
