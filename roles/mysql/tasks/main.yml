@@ -25,7 +25,7 @@
 - name: Setup the MySQL5.7 repo file
   ansible.builtin.copy:
     src: mysql.repo
-    dest: etc/yum.repos.d/mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
 
 - name: Install MySQL Server
   ansible.builtin.dnf:
