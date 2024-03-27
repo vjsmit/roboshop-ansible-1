@@ -1,0 +1,42 @@
+#echo -e "${color}Disable MySQL 8${nocolor}"
+#dnf module disable mysql -y   &>>{logfile}
+#func_StatCheck $?
+#
+#echo -e "${color}Setup the MySQL5.7 repo file${nocolor}"
+#cp /home/centos/roboshop4-shell/mysql.repo /etc/yum.repos.d/mysql.repo    &>>{logfile}
+#func_StatCheck $?
+#
+#echo -e "${color}Install MySQL Server${nocolor}"
+#dnf install mysql-community-server -y   &>>{logfile}
+#func_StatCheck $?
+#
+#echo -e "${color}Start MySQL Service${nocolor}"
+#systemctl enable mysqld   &>>{logfile}
+#systemctl restart mysqld    &>>{logfile}
+#func_StatCheck $?
+#
+#echo -e "${color}Change the default root password${nocolor}"
+#mysql_secure_installation --set-root-pass ${mysql_pwd}    &>>{logfile}
+#func_StatCheck $?
+
+- name: Disable MySQL 8
+  ansible.builtin.shell: dnf module disable mysql
+
+- name: Setup the MySQL5.7 repo file
+  ansible.builtin.copy:
+    src: mysql.repo
+    dest: etc/yum.repos.d/mysql.repo
+
+- name: Install MySQL Server
+  ansible.builtin.dnf:
+    name: mysql-community-server
+    state: installed
+
+- name: Install mysql service
+  ansible.builtin.systemd:
+    state: restarted
+    name: mysqld
+    enabled: yes
+
+- name: Change the default root password
+  ansible.builtin.shell: mysql_secure_installation --set-root-pass Roboshop@1
