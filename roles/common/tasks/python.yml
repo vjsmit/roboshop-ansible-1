@@ -1,10 +1,3 @@
-
-#echo -e "${color}Download Dependencies${nocolor}"
-#pip3.6 install -r requirements.txt    &>>${logfile}
-#func_StatCheck $?
-#
-#func_systemd
-
 - name: Install python
   ansible.builtin.dnf:
     name:
