@@ -8,7 +8,7 @@
     path: /usr/share/nginx/html
     state: absent
 
-- name: Remove default directory
+- name: Create directory
   ansible.builtin.file:
     path: /usr/share/nginx/html
     state: directory
