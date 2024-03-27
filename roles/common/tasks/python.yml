@@ -1,0 +1,26 @@
+
+#echo -e "${color}Download Dependencies${nocolor}"
+#pip3.6 install -r requirements.txt    &>>${logfile}
+#func_StatCheck $?
+#
+#func_systemd
+
+- name: Install python
+  ansible.builtin.dnf:
+    name:
+      - python36
+      - gcc
+      - python3-devel
+
+- name: Load App presetup
+  ansible.builtin.include_tasks:
+    file: app-presetup.yml
+
+- name: Install dependencies
+  ansible.builtin.shell: pip3.6 install -r requirements.txt
+  args:
+    chdir: /app
+
+- name: Load systemd
+  ansible.builtin.include_tasks:
+    file: systemd.yml
