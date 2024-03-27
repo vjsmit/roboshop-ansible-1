@@ -13,10 +13,6 @@
 
 
 
-
-
-
-
 #echo -e "${color}Enable 18 version ${nocolor}"
 #dnf module disable nodejs -y    &>>${logfile}
 #dnf module enable nodejs:18 -y    &>>${logfile}
