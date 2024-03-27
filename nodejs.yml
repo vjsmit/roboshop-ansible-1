@@ -1,7 +1,8 @@
+- name: Disable nodejs10
+  ansible.builtin.shell: dnf module disable nodejs
+
 - name: Enable nodejs18
-  ansible.builtin.dnf:
-    name: nodejs=18
-    state: present
+  ansible.builtin.shell: dnf module enable nodejs:18
 
 - name: Install nginx server
   ansible.builtin.dnf:
