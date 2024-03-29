@@ -15,16 +15,11 @@
   args:
     chdir: /app
 
+- name: Load mongo schema
+  - ansible.builtin.include_tasks:
+      file: mongo-schema_setup.yml
+    when: load_schema
+
 - name: Setup systemd
   ansible.builtin.include_tasks:
     file: systemd.yml
-
-
-
-#func_AppPresetup
-#
-#echo -e "${color}Download App Dependencies${nocolor}"
-#npm install   &>>${logfile}
-#func_StatCheck $?
-#
-#func_systemd
