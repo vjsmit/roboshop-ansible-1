@@ -16,9 +16,9 @@
     chdir: /app
 
 - name: Load mongo schema
-  - ansible.builtin.include_tasks:
-      file: mongo-schema_setup.yml
-    when: load_schema
+  ansible.builtin.include_tasks:
+    file: mongo-schema_setup.yml
+  when: load_schema
 
 - name: Setup systemd
   ansible.builtin.include_tasks:
