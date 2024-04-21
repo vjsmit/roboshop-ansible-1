@@ -20,7 +20,7 @@
     remote_src: yes
 
 - name: Setup reverse proxy
-  ansible.builtin.file:
+  ansible.builtin.copy:
     src: frontend.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
